@@ -1,0 +1,80 @@
+// =====================================================================
+// MEDIDAS DAX - Modelo de paros de producción / OEE
+// Crear en una tabla vacía llamada _Medidas (Inicio > Especificar datos > tabla en blanco)
+// Disponibilidad = 1 - minutos de paro / (horas trabajadas x 60)
+// =====================================================================
+
+// ---------- Base -----------------------------------------------------
+Horas Trabajadas = SUM ( fact_produccion_turno[horas_trabajadas] )
+
+Pacas Producidas = SUM ( fact_produccion_turno[pacas_producidas] )
+
+Min Programados = [Horas Trabajadas] * 60
+
+Min Paro = SUM ( fact_produccion_turno[min_paro_total] )
+
+Horas Paro = DIVIDE ( [Min Paro], 60 )
+
+Pacas por Hora = DIVIDE ( [Pacas Producidas], [Horas Trabajadas] )
+
+Registros Atípicos =
+CALCULATE ( COUNTROWS ( fact_produccion_turno ), fact_produccion_turno[es_atipico] = TRUE () )
+
+// ---------- OEE (sin Calidad) ----------------------------------------
+Disponibilidad = 1 - DIVIDE ( [Min Paro], [Min Programados] )
+
+Pacas Ideales Válidas =
+CALCULATE ( SUM ( fact_produccion_turno[pacas_ideales] ), fact_produccion_turno[es_atipico] = FALSE () )
+
+Pacas Reales con Tope =
+SUMX (
+    FILTER (
+        fact_produccion_turno,
+        NOT fact_produccion_turno[es_atipico]
+            && NOT ISBLANK ( fact_produccion_turno[pacas_ideales] )
+    ),
+    MIN ( fact_produccion_turno[pacas_producidas], fact_produccion_turno[pacas_ideales] )
+)
+
+Rendimiento = DIVIDE ( [Pacas Reales con Tope], [Pacas Ideales Válidas] )
+
+OEE sin Calidad = [Disponibilidad] * [Rendimiento]
+
+// Meta de referencia para las tarjetas (supuesto: validar con la empresa)
+Meta Disponibilidad = 0.75
+
+// ---------- Inteligencia de tiempo -----------------------------------
+Pacas Año Anterior =
+CALCULATE ( [Pacas Producidas], SAMEPERIODLASTYEAR ( dim_fecha[fecha] ) )
+
+Var Pacas vs Año Anterior % =
+DIVIDE ( [Pacas Producidas] - [Pacas Año Anterior], [Pacas Año Anterior] )
+
+Disponibilidad Año Anterior =
+CALCULATE ( [Disponibilidad], SAMEPERIODLASTYEAR ( dim_fecha[fecha] ) )
+
+Dif Disponibilidad vs Año Anterior (pp) =
+( [Disponibilidad] - [Disponibilidad Año Anterior] ) * 100
+
+Disponibilidad Acumulada del Año =
+CALCULATE ( [Disponibilidad], DATESYTD ( dim_fecha[fecha] ) )
+
+Disponibilidad Media Móvil 3M =
+CALCULATE (
+    [Disponibilidad],
+    DATESINPERIOD ( dim_fecha[fecha], MAX ( dim_fecha[fecha] ), -3, MONTH )
+)
+
+// ---------- Pareto de causas (usa fact_paro) -------------------------
+Horas Paro Causa = DIVIDE ( SUM ( fact_paro[duracion_min] ), 60 )
+
+% del Total Paro =
+DIVIDE ( [Horas Paro Causa], CALCULATE ( [Horas Paro Causa], ALLSELECTED ( dim_causa_paro ) ) )
+
+% Acumulado Pareto =
+VAR actual = [Horas Paro Causa]
+VAR causas = ALLSELECTED ( dim_causa_paro[codigo_nombre] )
+VAR acumulado = SUMX ( FILTER ( causas, [Horas Paro Causa] >= actual ), [Horas Paro Causa] )
+VAR total = SUMX ( causas, [Horas Paro Causa] )
+RETURN
+    DIVIDE ( acumulado, total )

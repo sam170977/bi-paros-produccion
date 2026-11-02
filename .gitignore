@@ -1,0 +1,35 @@
+# Credenciales y configuración local
+.env
+*.env
+!.env.example
+
+# Datos de origen (confidenciales / pesados): se colocan en data/ localmente
+data/*
+!data/.gitkeep
+*.xlsm
+*.xlsx
+*.xls
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs de ejecución
+*.log
+
+# Power BI: caché y ajustes locales (el proyecto .pbip sí se versiona)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Volúmenes de Docker (bonificación)
+pgdata/
+grafana-data/
