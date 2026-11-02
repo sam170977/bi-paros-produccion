@@ -1,0 +1,65 @@
+table dim_maquina
+	lineageTag: 67e553e7-0331-424a-818f-79abb23f3b46
+
+	column maquina_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 33d2e673-ead1-48d5-b24f-f1c229056c6a
+		summarizeBy: none
+		sourceColumn: maquina_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column maquina_nk
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0e8c50ed-8a96-4734-a33a-2db8d9bb2262
+		summarizeBy: none
+		sourceColumn: maquina_nk
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column nombre
+		dataType: string
+		lineageTag: 18ff5308-02f6-4ddb-839b-f3380c450d65
+		summarizeBy: none
+		sourceColumn: nombre
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column linea
+		dataType: string
+		lineageTag: 70cbe8ec-4584-4da1-af70-c338db81717b
+		summarizeBy: none
+		sourceColumn: linea
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_maquina = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_dim_maquina = Origen{[Schema="dw",Item="dim_maquina"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(dw_dim_maquina,{"dw.fact_paro", "dw.fact_produccion_hora", "dw.fact_produccion_turno"})
+				in
+				    #"Columnas quitadas"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

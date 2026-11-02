@@ -1,0 +1,173 @@
+table dim_causa_paro
+	lineageTag: c284d9de-5f15-4d37-a9dd-4adf5ac35b48
+
+	column causa_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1cf70278-7451-4926-8ed7-4de7bb2b938d
+		summarizeBy: none
+		sourceColumn: causa_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column codigo_paro_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b8753411-8eae-4065-a95c-2766a842333c
+		summarizeBy: none
+		sourceColumn: codigo_paro_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column codigo_nombre
+		dataType: string
+		lineageTag: f8d65d98-7d58-4d25-96dc-85b87bad940c
+		summarizeBy: none
+		sourceColumn: codigo_nombre
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_impacto
+		dataType: string
+		lineageTag: 82fe8b07-b2c9-4b84-868e-f90dea3d7426
+		summarizeBy: none
+		sourceColumn: area_impacto
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column es_planificado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4d038a07-29da-4e18-96f1-777fbf9aa148
+		summarizeBy: none
+		sourceColumn: es_planificado
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column afecta_oee
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a7734b71-23a9-44b6-9aa0-9f4e1102d73d
+		summarizeBy: none
+		sourceColumn: afecta_oee
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcodigo_clave
+		dataType: string
+		isHidden
+		lineageTag: c904bb0d-1467-461c-b527-7706bfa1f3a1
+		summarizeBy: none
+		sourceColumn: subcodigo_clave
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcodigo_descripcion
+		dataType: string
+		lineageTag: b2fce8ea-5684-4005-af5f-2edb9a00859a
+		summarizeBy: none
+		sourceColumn: subcodigo_descripcion
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column vigente_desde
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: ec2d8d7f-e23e-4203-9ff2-78881be57cb6
+		summarizeBy: none
+		sourceColumn: vigente_desde
+
+		variation Variation
+			isDefault
+			relationship: 1216892e-2e86-4c61-8ae6-1b3d0d87ed8b
+			defaultHierarchy: LocalDateTable_23bca448-58aa-4515-8aa6-ae71597f9dc2.'Jerarquía de fechas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column vigente_hasta
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: b882ef35-3298-4ef7-a027-e9386fb15d42
+		summarizeBy: none
+		sourceColumn: vigente_hasta
+
+		variation Variation
+			isDefault
+			relationship: c921b7c5-2b53-412c-82e6-980b65932bd9
+			defaultHierarchy: LocalDateTable_3fe96b7b-f4ea-4220-afe2-4eafe39d4e49.'Jerarquía de fechas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column es_vigente
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: aac51e72-f60a-4282-ba05-38477d1a1130
+		summarizeBy: none
+		sourceColumn: es_vigente
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy Causa
+		lineageTag: 06c73ab0-555b-42ec-9380-1832b1747ff6
+
+		level area_impacto
+			lineageTag: bef97ecb-ea3f-4551-8f02-92a968714a6d
+			column: area_impacto
+
+		level codigo_nombre
+			lineageTag: a2450d11-4a2d-469d-ae7a-bbb372392aa4
+			column: codigo_nombre
+
+		level subcodigo_descripcion
+			lineageTag: 5a3c4077-f9dd-477b-8ed7-ba2aa822c0a8
+			column: subcodigo_descripcion
+
+	partition dim_causa_paro = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_dim_causa_paro = Origen{[Schema="dw",Item="dim_causa_paro"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(dw_dim_causa_paro,{"dw.fact_paro", "dw.fact_produccion_hora"})
+				in
+				    #"Columnas quitadas"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

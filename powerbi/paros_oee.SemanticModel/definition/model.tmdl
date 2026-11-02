@@ -1,0 +1,33 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CO
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_agente","dim_causa_paro","dim_fecha","dim_maquina","dim_operario","dim_referencia","dim_turno","fact_paro","fact_produccion_turno"]
+
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"b852452d-7339-45ed-9456-296c6b3790d3","fromColumnLocalLineageTag":"9bec1136-0961-4aa3-8bb3-2c723d74927c","toTableLocalLineageTag":"cfe9162f-202a-4a09-9a61-bdcb5c3df997","toColumnLocalLineageTag":"1276a53d-7797-41d5-9e73-5913b159144e"}},"objectType":"Relationship"}]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_agente
+ref table dim_causa_paro
+ref table DateTableTemplate_0ac03379-ded2-4676-acac-a9e95d0d405d
+ref table LocalDateTable_23bca448-58aa-4515-8aa6-ae71597f9dc2
+ref table LocalDateTable_3fe96b7b-f4ea-4220-afe2-4eafe39d4e49
+ref table dim_fecha
+ref table dim_maquina
+ref table dim_operario
+ref table dim_referencia
+ref table dim_turno
+ref table fact_paro
+ref table fact_produccion_turno
+ref table _Medidas
+
+ref cultureInfo es-MX
+

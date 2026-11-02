@@ -1,0 +1,51 @@
+table _Medidas
+	lineageTag: 4061af70-9fdd-4d0f-97bd-be0202713a69
+
+	measure Disponibilidad = 1 - DIVIDE ( [Min Paro], [Min Programados] )
+		lineageTag: 473e9e46-2270-4d9f-aa97-0e541752a311
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Horas Paro' = DIVIDE ( [Min Paro], 60 )
+		lineageTag: 27f77998-5615-44dc-9a6c-86508291479a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Horas Trabajadas' = SUM ( fact_produccion_turno[horas_trabajadas] )
+		lineageTag: abbd0fc2-837b-45bd-bc74-1b8c4e200999
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Min Paro' = SUM ( fact_produccion_turno[min_paro_total] )
+		lineageTag: 5cd272ac-3cf0-4771-9c17-d2f3ffa76f5e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Min Programados' = [Horas Trabajadas] * 60
+		lineageTag: df24af45-ae5a-4bdb-8822-7bda06b17602
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pacas Producidas' = SUM ( fact_produccion_turno[pacas_producidas] )
+		lineageTag: 54025bbe-9705-4402-9e21-435893728972
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: acd92237-cef5-428d-afec-1b481ae8a4e6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = e85e682ec46a445e80fe0ac7fac60668
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

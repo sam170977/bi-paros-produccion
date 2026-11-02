@@ -1,0 +1,43 @@
+table dim_agente
+	lineageTag: 525e797c-6019-4ddc-bec6-721fc50ab9a3
+
+	column agente_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fe444b73-1d25-4fce-8625-a6581df5b0fe
+		summarizeBy: none
+		sourceColumn: agente_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre
+		dataType: string
+		lineageTag: 8798a7b4-6e49-435b-95b6-d021e708523f
+		summarizeBy: none
+		sourceColumn: nombre
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_agente = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_dim_agente = Origen{[Schema="dw",Item="dim_agente"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(dw_dim_agente,{"dw.fact_paro"})
+				in
+				    #"Columnas quitadas"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

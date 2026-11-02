@@ -1,0 +1,55 @@
+table dim_operario
+	lineageTag: 63f0dfdf-1e3b-4f80-a7ed-4edab2bb2876
+
+	column operario_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6e70441e-313d-4fad-ba81-e9a6853a8217
+		summarizeBy: none
+		sourceColumn: operario_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column operario_nk
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 48ea3ebb-eded-421d-82bf-ce63a6f33475
+		summarizeBy: none
+		sourceColumn: operario_nk
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column operario_codigo
+		dataType: string
+		lineageTag: 58b82466-df3c-41a7-9e85-dc15e0eb17e4
+		summarizeBy: none
+		sourceColumn: operario_codigo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_operario = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_dim_operario = Origen{[Schema="dw",Item="dim_operario"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(dw_dim_operario,{"nombre", "dw.fact_paro", "dw.fact_produccion_turno"})
+				in
+				    #"Columnas quitadas"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

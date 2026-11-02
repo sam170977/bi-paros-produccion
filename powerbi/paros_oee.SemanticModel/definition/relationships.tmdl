@@ -1,0 +1,82 @@
+relationship 1216892e-2e86-4c61-8ae6-1b3d0d87ed8b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_causa_paro.vigente_desde
+	toColumn: LocalDateTable_23bca448-58aa-4515-8aa6-ae71597f9dc2.Date
+
+relationship c921b7c5-2b53-412c-82e6-980b65932bd9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_causa_paro.vigente_hasta
+	toColumn: LocalDateTable_3fe96b7b-f4ea-4220-afe2-4eafe39d4e49.Date
+
+relationship 575e653b-7844-42b7-be05-22b3ea8e8af8
+	fromColumn: fact_paro.agente_key
+	toColumn: dim_agente.agente_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9736e6da-bfcf-498a-8325-0b0d81ce3b96
+	fromColumn: fact_paro.causa_key
+	toColumn: dim_causa_paro.causa_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 56781619-ca5f-453c-a60c-2082c102c72f
+	fromColumn: fact_paro.fecha_key
+	toColumn: dim_fecha.fecha_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship af30fcc2-48c4-46ae-96c3-230b40cf8ddd
+	fromColumn: fact_paro.maquina_key
+	toColumn: dim_maquina.maquina_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6cbd3eaa-7015-439c-8526-31bab7f75c7c
+	fromColumn: fact_paro.operario_key
+	toColumn: dim_operario.operario_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 459ecc44-21df-4ccc-9e53-32d5f2c557b7
+	fromColumn: fact_paro.referencia_key
+	toColumn: dim_referencia.referencia_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 88b40261-7743-412a-a2d1-6db6538a860f
+	fromColumn: fact_paro.turno_key
+	toColumn: dim_turno.turno_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 3d27c665-656e-436e-9c3f-d835900c2ee4
+	fromColumn: fact_produccion_turno.fecha_key
+	toColumn: dim_fecha.fecha_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 945115df-d38a-4ba8-9f41-04595cc3f152
+	fromColumn: fact_produccion_turno.maquina_key
+	toColumn: dim_maquina.maquina_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship a47799bc-95e3-4a84-af2b-633544de92c7
+	fromColumn: fact_produccion_turno.operario_key
+	toColumn: dim_operario.operario_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship b4a92a5b-e473-48b3-a88b-f3fc7d5245fa
+	fromColumn: fact_produccion_turno.referencia_key
+	toColumn: dim_referencia.referencia_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship a479b22b-a782-43bb-ac7e-d4307ef35d5f
+	fromColumn: fact_produccion_turno.turno_key
+	toColumn: dim_turno.turno_key
+
+	annotation PBI_IsFromSource = FS
+

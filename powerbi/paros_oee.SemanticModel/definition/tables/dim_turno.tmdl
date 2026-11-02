@@ -1,0 +1,106 @@
+table dim_turno
+	lineageTag: a15679f1-b56c-4cdd-8c7a-8779d5c7df6c
+
+	column turno_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b7c09997-a6fb-4f00-be24-6910e78bc7fc
+		summarizeBy: none
+		sourceColumn: turno_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column turno_nk
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 30fb3b4b-53f9-4ee3-be26-521b7319b7d3
+		summarizeBy: none
+		sourceColumn: turno_nk
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column descripcion
+		dataType: string
+		lineageTag: 7a6c7aec-2268-47e9-8715-a7f4c85615f6
+		summarizeBy: none
+		sourceColumn: descripcion
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora_inicio
+		dataType: dateTime
+		isHidden
+		formatString: Long Time
+		lineageTag: fe03d7c5-2fe2-484a-8f3b-2978c50e7783
+		summarizeBy: none
+		sourceColumn: hora_inicio
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column hora_fin
+		dataType: dateTime
+		isHidden
+		formatString: Long Time
+		lineageTag: 320d19f0-3dbb-47cd-b4d9-a13a7b6f49ce
+		summarizeBy: none
+		sourceColumn: hora_fin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column minutos_turno
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 76680400-6f6c-4a3f-97bd-252280aade6a
+		summarizeBy: none
+		sourceColumn: minutos_turno
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column turno_conocido
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d6cb2817-203c-4193-8798-2dd535171ce4
+		summarizeBy: none
+		sourceColumn: turno_conocido
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_turno = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_dim_turno = Origen{[Schema="dw",Item="dim_turno"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(dw_dim_turno,{"dw.fact_produccion_hora", "dw.fact_produccion_turno", "dw.fact_paro"})
+				in
+				    #"Columnas quitadas"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

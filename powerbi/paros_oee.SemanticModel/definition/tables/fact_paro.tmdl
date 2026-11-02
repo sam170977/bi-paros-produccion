@@ -1,0 +1,142 @@
+table fact_paro
+	isHidden
+	lineageTag: b852452d-7339-45ed-9456-296c6b3790d3
+
+	column paro_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 012bae44-da69-4444-9922-695de0727ace
+		summarizeBy: none
+		sourceColumn: paro_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column registro_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9bec1136-0961-4aa3-8bb3-2c723d74927c
+		summarizeBy: none
+		sourceColumn: registro_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column fecha_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d8976a95-61d7-48b2-bf4c-64c46e1e6380
+		summarizeBy: none
+		sourceColumn: fecha_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column maquina_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 58cb2ac7-918e-4d9f-8d99-4a95fa87a339
+		summarizeBy: none
+		sourceColumn: maquina_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column turno_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 32d70559-2a9f-4a81-9df2-53619deb79d6
+		summarizeBy: none
+		sourceColumn: turno_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column operario_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 86a028ec-14df-41a7-b5ba-328de5568e5c
+		summarizeBy: none
+		sourceColumn: operario_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column referencia_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 717cc63d-6e86-46a6-9c35-0108a6a5535c
+		summarizeBy: none
+		sourceColumn: referencia_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column causa_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cdc70b35-f006-4b5d-98b0-79753e335fb5
+		summarizeBy: none
+		sourceColumn: causa_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column agente_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f97a9174-87dd-4eea-8d5f-77c115c4ad3b
+		summarizeBy: none
+		sourceColumn: agente_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_min
+		dataType: double
+		isHidden
+		lineageTag: 742802fc-39e2-415e-a608-92f99a880f37
+		summarizeBy: none
+		sourceColumn: duracion_min
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_paro = m
+		mode: import
+		source =
+				let
+				    Origen = PostgreSQL.Database("localhost:5432", "SEGUIMIENTO_TEMPERAS_Y_VINILOS"),
+				    dw_fact_paro = Origen{[Schema="dw",Item="fact_paro"]}[Data]
+				in
+				    dw_fact_paro
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+
