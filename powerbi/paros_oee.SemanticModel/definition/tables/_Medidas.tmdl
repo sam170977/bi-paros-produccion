@@ -31,6 +31,60 @@ table _Medidas
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure Calidad = 1.0
+		lineageTag: dcb8f50e-3036-4cd3-8bb1-ef6456b777fb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Rendimiento =
+			
+			VAR MinutosOp = ([Horas Trabajadas] * 60) - [Min Paro]
+			VAR ProduccionReal = [Pacas Producidas]
+			-- Si la capacidad en tu proceso es por HORA (ej. 120 pacas/hora = 2 pacas/minuto):
+			VAR CapacidadPorMinuto = 1.0  -- Prueba con 1.0 o con la tasa real de pacas por minuto
+			VAR ProduccionEsperada = MinutosOp * CapacidadPorMinuto
+			RETURN
+			IF(
+			    ISBLANK(MinutosOp) || MinutosOp <= 0,
+			    0,
+			    DIVIDE(ProduccionReal, ProduccionEsperada, 0)
+			)
+		lineageTag: 4be8724c-025c-4cdb-9f36-529519b6080c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure OEE = [Disponibilidad] * [Rendimiento] * [Calidad]
+		lineageTag: 42a93c08-bdea-461b-b0e4-6ac53c696497
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Acumulado Pareto' = ```
+			
+			VAR TotalMinutosSeleccionados = CALCULATE([Min Paro], ALLSELECTED(dim_causa_paro))
+			VAR MinutosFallaActual = [Min Paro]
+			VAR TablaRanking = 
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_causa_paro[codigo_nombre]),
+			        "@Minutos", [Min Paro]
+			    )
+			RETURN
+			IF(
+			    ISBLANK([Min Paro]),
+			    BLANK(),
+			    DIVIDE(
+			        SUMX(
+			            FILTER(TablaRanking, [@Minutos] >= MinutosFallaActual),
+			            [@Minutos]
+			        ),
+			        TotalMinutosSeleccionados,
+			        0
+			    )
+			)
+			```
+		lineageTag: e7e76e4f-42ec-4d20-9dcb-2f6034eb24d9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Column
 		isHidden
 		formatString: 0

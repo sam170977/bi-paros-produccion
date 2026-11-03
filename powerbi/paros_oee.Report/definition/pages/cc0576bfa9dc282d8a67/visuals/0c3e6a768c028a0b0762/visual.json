@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0c3e6a768c028a0b0762",
+  "position": {
+    "x": 846.43448395623909,
+    "y": 0,
+    "z": 2,
+    "height": 1081.1600131205741,
+    "width": 1074.0471182974127,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_causa_paro"
+                    }
+                  },
+                  "Property": "codigo_nombre"
+                }
+              },
+              "queryRef": "dim_causa_paro.codigo_nombre",
+              "nativeQueryRef": "codigo_nombre"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_causa_paro"
+                    }
+                  },
+                  "Property": "subcodigo_descripcion"
+                }
+              },
+              "queryRef": "dim_causa_paro.subcodigo_descripcion",
+              "nativeQueryRef": "subcodigo_descripcion"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_causa_paro"
+                    }
+                  },
+                  "Property": "afecta_oee"
+                }
+              },
+              "queryRef": "dim_causa_paro.afecta_oee",
+              "nativeQueryRef": "afecta_oee"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Horas Paro"
+                }
+              },
+              "queryRef": "_Medidas.Horas Paro",
+              "nativeQueryRef": "Horas Paro"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "% Acumulado Pareto"
+                }
+              },
+              "queryRef": "_Medidas.% Acumulado Pareto",
+              "nativeQueryRef": "% Acumulado Pareto"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6fc6febcd493587e0eee",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_causa_paro"
+              }
+            },
+            "Property": "codigo_nombre"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "da73ed6579e00d54cde2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_causa_paro"
+              }
+            },
+            "Property": "subcodigo_descripcion"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "910f383618820ca6eeda",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_causa_paro"
+              }
+            },
+            "Property": "afecta_oee"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "17a2eac19a6152c046d9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Horas Paro"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "12375b5fcb1d85684025",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Acumulado Pareto"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

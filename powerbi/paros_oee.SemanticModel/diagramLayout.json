@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 522.88825159430235,
-        "y": 0
+        "x": 4.3012878232821095,
+        "y": 21.258731999999874
       },
       "nodes": [
         {
@@ -34,10 +34,11 @@
         },
         {
           "location": {
-            "x": 365.26253821497005,
-            "y": 311.23134084980768
+            "x": 308.70089278925849,
+            "y": 842.02762840302626
           },
           "nodeIndex": "fact_paro",
+          "nodeLineageTag": "b852452d-7339-45ed-9456-296c6b3790d3",
           "size": {
             "height": 300,
             "width": 234
@@ -58,10 +59,11 @@
         },
         {
           "location": {
-            "x": 712.10065933361216,
-            "y": 306.24874521973004
+            "x": 727.68888180612521,
+            "y": 564.56786047851767
           },
           "nodeIndex": "fact_produccion_turno",
+          "nodeLineageTag": "cfe9162f-202a-4a09-9a61-bdcb5c3df997",
           "size": {
             "height": 300,
             "width": 234
@@ -82,10 +84,11 @@
         },
         {
           "location": {
-            "x": 993.48547624714433,
-            "y": 290.47536279797305
+            "x": 1060.2921439864861,
+            "y": 504.25669956386628
           },
           "nodeIndex": "dim_operario",
+          "nodeLineageTag": "63f0dfdf-1e3b-4f80-a7ed-4edab2bb2876",
           "size": {
             "height": 176,
             "width": 234
@@ -94,10 +97,11 @@
         },
         {
           "location": {
-            "x": 1178.9456256379694,
-            "y": 53.648166108637284
+            "x": 1314.7858500412974,
+            "y": 0
           },
           "nodeIndex": "dim_turno",
+          "nodeLineageTag": "a15679f1-b56c-4cdd-8c7a-8779d5c7df6c",
           "size": {
             "height": 248,
             "width": 234
@@ -118,8 +122,8 @@
         },
         {
           "location": {
-            "x": 1462.9456256379694,
-            "y": 205.61567042490384
+            "x": 1398.3658468232725,
+            "y": 539.64900912161193
           },
           "nodeIndex": "_Medidas",
           "size": {
@@ -130,7 +134,7 @@
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 79.5531820377001,
+      "zoomValue": 56.447393005378075,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

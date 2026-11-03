@@ -1,0 +1,222 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7ee06405a81c57837693",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 604.59605996874222,
+    "width": 874.88606324888576,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "lineClusteredColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_causa_paro"
+                        }
+                      },
+                      "Hierarchy": "Causa"
+                    }
+                  },
+                  "Level": "area_impacto"
+                }
+              },
+              "queryRef": "dim_causa_paro.Causa.area_impacto",
+              "nativeQueryRef": "Causa area_impacto",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_causa_paro"
+                        }
+                      },
+                      "Hierarchy": "Causa"
+                    }
+                  },
+                  "Level": "codigo_nombre"
+                }
+              },
+              "queryRef": "dim_causa_paro.Causa.codigo_nombre",
+              "nativeQueryRef": "Causa codigo_nombre",
+              "active": false
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_causa_paro"
+                        }
+                      },
+                      "Hierarchy": "Causa"
+                    }
+                  },
+                  "Level": "subcodigo_descripcion"
+                }
+              },
+              "queryRef": "dim_causa_paro.Causa.subcodigo_descripcion",
+              "nativeQueryRef": "Causa subcodigo_descripcion",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Min Paro"
+                }
+              },
+              "queryRef": "_Medidas.Min Paro",
+              "nativeQueryRef": "Min Paro"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "% Acumulado Pareto"
+                }
+              },
+              "queryRef": "_Medidas.% Acumulado Pareto",
+              "nativeQueryRef": "% Acumulado Pareto"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "Min Paro"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "328422e76b9311c70d12",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_causa_paro"
+                  }
+                },
+                "Hierarchy": "Causa"
+              }
+            },
+            "Level": "area_impacto"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c5c69e6150482dc0c929",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_causa_paro"
+                  }
+                },
+                "Hierarchy": "Causa"
+              }
+            },
+            "Level": "codigo_nombre"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b6df3be79a7c80a53633",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_causa_paro"
+                  }
+                },
+                "Hierarchy": "Causa"
+              }
+            },
+            "Level": "subcodigo_descripcion"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a0aefb9d9a017976071e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Min Paro"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f8069c21e72811620c67",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Acumulado Pareto"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

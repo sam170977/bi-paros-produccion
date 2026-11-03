@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "30feaf2a804e1984c387",
+  "position": {
+    "x": 0,
+    "y": 604.59605996874222,
+    "z": 1,
+    "height": 450.48333880023927,
+    "width": 874.88606324888576,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_causa_paro"
+                    }
+                  },
+                  "Property": "area_impacto"
+                }
+              },
+              "queryRef": "dim_causa_paro.area_impacto",
+              "nativeQueryRef": "area_impacto",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Min Paro"
+                }
+              },
+              "queryRef": "_Medidas.Min Paro",
+              "nativeQueryRef": "Min Paro"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "Min Paro"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "953245a497072032dc3a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_causa_paro"
+              }
+            },
+            "Property": "area_impacto"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a05e55a02c753b627209",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Min Paro"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
