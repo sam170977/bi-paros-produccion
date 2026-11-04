@@ -11,7 +11,7 @@ Solución de Inteligencia de Negocios de extremo a extremo para una fabricante d
 | Esquema relacional de origen (`produccion`) | Hecho |
 | ETL Excel → PostgreSQL, conciliado | Hecho |
 | Modelo dimensional (`dw`) y consultas analíticas | Hecho |
-| Tablero Power BI | En progreso |
+| Tablero Power BI | Hecho |
 | Simulador y tablero Grafana con alerta | Hecho |
 | Despliegue con Docker (bonificación) | Hecho |
 
