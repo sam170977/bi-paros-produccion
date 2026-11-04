@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL_BI
+    type: postgres
+    access: proxy
+    url: host.docker.internal:5432
+    user: postgres
+    secureJsonData:
+      password: "123"
+    jsonData:
+      database: SEGUIMIENTO_TEMPERAS_Y_VINILOS
+      sslmode: 'disable'
+      maxOpenConns: 5
+      postgresVersion: 1500

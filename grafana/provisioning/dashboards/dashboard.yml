@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Monitoreo Envasado'
+    orgId: 1
+    folder: 'Produccion'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
