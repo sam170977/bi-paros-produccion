@@ -2,8 +2,8 @@
 
 Solución de Inteligencia de Negocios de extremo a extremo para una fabricante de vinilos y témperas con cuatro líneas de envasado (Vinilos_1 a Vinilos_4). Integra el histórico de producción y paros (2022-01-01 a 2025-03-28) en un modelo dimensional sobre PostgreSQL, con ETL reproducible y validación de calidad de datos, y lo expone en Power BI (análisis estratégico) y Grafana (monitoreo operativo con alertas).
 
-**Integrantes:** [Nombre Apellido 1] · [Nombre Apellido 2]  
-**Curso:** Business Intelligence · **Entrega:** [fecha]
+**Integrantes:** [Sammy Valeria Arteaga ] 
+**Curso:** Business Intelligence · **Entrega:** [4/11/2026]
 
 ## Estado del proyecto
 | Componente | Estado |
@@ -12,8 +12,8 @@ Solución de Inteligencia de Negocios de extremo a extremo para una fabricante d
 | ETL Excel → PostgreSQL, conciliado | Hecho |
 | Modelo dimensional (`dw`) y consultas analíticas | Hecho |
 | Tablero Power BI | En progreso |
-| Simulador y tablero Grafana con alerta | Pendiente |
-| Despliegue con Docker (bonificación) | Pendiente |
+| Simulador y tablero Grafana con alerta | Hecho |
+| Despliegue con Docker (bonificación) | Hecho |
 
 ## Arquitectura
 ```mermaid
