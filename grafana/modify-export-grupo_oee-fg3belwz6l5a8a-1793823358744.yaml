@@ -1,0 +1,92 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: grupo_oee
+      folder: Alertas Produccion
+      interval: 1m
+      rules:
+        - uid: fg3belwz6l5a8a
+          title: Baja Disponibilidad por Máquina (< 70%)
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: P45C23263AF3419C2
+              model:
+                dataset: SEGUIMIENTO_TEMPERAS_Y_VINILOS
+                editorMode: code
+                format: table
+                intervalMs: 1000
+                maxDataPoints: 43200
+                rawQuery: true
+                rawSql: "SELECT \r\n  m.nombre AS metric, \r\n  ROUND(\r\n    CASE \r\n      WHEN COALESCE(f.horas_trabajadas, 0) > 0 \r\n      THEN GREATEST(0.0, LEAST(100.0, 100.0 * (1.0 - (COALESCE(f.min_paro_oee, 0)::numeric / (f.horas_trabajadas * 60.0)::numeric))))\r\n      ELSE 100.0 \r\n    END, 2\r\n  ) AS value\r\nFROM dw.fact_produccion_turno f\r\nJOIN dw.dim_maquina m USING (maquina_key)\r\nWHERE f.registro_id IN (\r\n    SELECT MAX(registro_id) \r\n    FROM dw.fact_produccion_turno \r\n    GROUP BY maquina_key\r\n);"
+                refId: A
+                sql:
+                    columns:
+                        - parameters: []
+                          type: function
+                    groupBy:
+                        - property:
+                            type: string
+                          type: groupBy
+                    limit: 50
+            - refId: B
+              queryType: expression
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              queryType: expression
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 70
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          annotations: {}
+          labels: {}
+          isPaused: false
+          notification_settings:
+            receiver: empty
